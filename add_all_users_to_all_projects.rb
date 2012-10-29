@@ -2,6 +2,11 @@
 
 require 'gitlab'
 
+GUEST     = 10
+REPORTER  = 20
+DEVELOPER = 30
+MASTER    = 40
+
 Gitlab.endpoint      = ENV['GITLAB_ENDPOINT']
 Gitlab.private_token = ENV['GITLAB_PRIVATE_TOKEN']
 
@@ -18,7 +23,7 @@ Gitlab.projects.each do |project|
     project_members << member.id
   end
   ( users - project_members ).each do |user_id|
-    Gitlab.add_team_member(project.id, user_id, 'Developer')
+    Gitlab.add_team_member(project.id, user_id, DEVELOPER)
   end
 end
 
